@@ -4,17 +4,16 @@ const params = {
 }
 
 
-const funcOfX = (c, m, graphDims, interval = 100) => {    
+const funcOfX = (c, m, graphDims, interval = 50) => {    
     const xRange = (start, stop, step) => {
-        const xRangeArr = Array.from({length: ( stop - start ) / step + 1}, (_, i) => start + (i * step) );
+        const xRangeArr = Array.from({length: ( stop - start ) / step}, (_, i) => start + (i * step) );
         return xRangeArr;
     };
 
     const xRangeArr = (xRange(graphDims.x0, graphDims.x1, (graphDims.x1 - graphDims.x0) / interval) );
-    console.log(xRangeArr);
     const linearPlot = xRangeArr.reduce(( acc, ele ) => {
-        const yVal = graphDims.y1 - ( ( m * ele ) + c - graphDims.x0);
-        return acc + ` L ${ele} ${yVal}`}, `M ${graphDims.x0} ${graphDims.y1}`         
+        const yVal = graphDims.y1 - ( ( m * ( ele - graphDims.x0 )) + c /*- graphDims.x0*/);
+        return yVal >= graphDims.y0 * 1.05 && ele <= graphDims.x1 * 0.95 ? (acc + ` L ${ele} ${yVal}`) : acc }, `M ${graphDims.x0} ${graphDims.y1 - c}`         
     );        
     
     console.log(linearPlot.toString());
@@ -41,13 +40,13 @@ const graphArea = (graphDims) => {
     gPlot.setAttribute('top', `${graphDims.y0}`);
 
     const axis = document.createElementNS('http://www.w3.org/2000/svg','path');
-    axis.setAttribute('d' , `M ${graphDims.x0} ${graphDims.y0} V ${graphDims.y1} H ${graphDims.x1}`);
+    axis.setAttribute('d' , `M ${graphDims.x0} ${graphDims.y0} L ${graphDims.x0} ${graphDims.y1} L ${graphDims.x1}, ${graphDims.y1}`);
     axis.setAttribute('fill', 'transparent');
     axis.setAttribute('stroke', 'black')
     gPlot.append(axis);
     
     const plotLine = document.createElementNS('http://www.w3.org/2000/svg','path');
-    plotLine.setAttribute('d', funcOfX(0, 1, graphDims));
+    plotLine.setAttribute('d', funcOfX(params.c, params.m, graphDims));
     plotLine.setAttribute('fill', 'transparent');
     plotLine.setAttribute('stroke', 'black');
     gPlot.append(plotLine);
@@ -59,8 +58,8 @@ const newSVG = svgGen('newPlot', visPanel.offsetWidth, visPanel.offsetHeight);
 const graphDims = {
     x0: 50,
     x1: 250,
-    y0: 10,
-    y1: 225
+    y0: 100,
+    y1: 300
 }
 
 const graph = graphArea(graphDims);
