@@ -1,19 +1,29 @@
 const params = {
     c: 0,
     m: 1,
+    xPower: 2,
+    xAxisMin: -1,
+    xAxisMax: 1.5,
+    yAxisMin: -.2,
+    yAxisMax: 1.5,
 }
 
 
-const funcOfX = (c, m, graphDims, interval = 50) => {    
+const funcOfX = (params, graphDims, interval = 200) => {    
     const xRange = (start, stop, step) => {
         const xRangeArr = Array.from({length: ( stop - start ) / step}, (_, i) => start + (i * step) );
+        console.log(xRangeArr);
         return xRangeArr;
     };
 
-    const xRangeArr = (xRange(graphDims.x0, graphDims.x1, (graphDims.x1 - graphDims.x0) / interval) );
-    const linearPlot = xRangeArr.reduce(( acc, ele ) => {
-        const yVal = graphDims.y1 - ( ( m * ( ele - graphDims.x0 )) + c /*- graphDims.x0*/);
-        return yVal >= graphDims.y0 * 1.05 && ele <= graphDims.x1 * 0.95 ? (acc + ` L ${ele} ${yVal}`) : acc }, `M ${graphDims.x0} ${graphDims.y1 - c}`         
+    const xRangeArr = (xRange(params.xAxisMin, params.xAxisMax, (params.xAxisMax - params.xAxisMin) / interval) );
+    const yUnit = graphDims.y1 / (params.yAxisMax - params.yAxisMin);
+    const xUnit = graphDims.x1 / (params.xAxisMax - params.xAxisMin);
+
+    const linearPlot = xRangeArr.reduce(( acc, ele, idx, arr ) => {
+        const yVal =  ( ( params.m * Math.pow(( ele ),params.xPower) ) + params.c);
+        console.log(yVal);
+        return (graphDims.y1 - (yVal * yUnit)) >= graphDims.y0 * 1.05 && (ele * xUnit + graphDims.x0) <= graphDims.x1 * 0.95 ? (acc + ` L ${ele * xUnit + graphDims.x0} ${graphDims.y1 - (yVal * yUnit)}`) : acc }, `M ${xRangeArr[0] * xUnit + graphDims.x0} ${graphDims.y1 - params.c}`         
     );        
     
     console.log(linearPlot.toString());
@@ -46,9 +56,9 @@ const graphArea = (graphDims) => {
     gPlot.append(axis);
     
     const plotLine = document.createElementNS('http://www.w3.org/2000/svg','path');
-    plotLine.setAttribute('d', funcOfX(params.c, params.m, graphDims));
+    plotLine.setAttribute('d', funcOfX(params, graphDims));
     plotLine.setAttribute('fill', 'transparent');
-    plotLine.setAttribute('stroke', 'black');
+    plotLine.setAttribute('stroke', 'darkred');
     gPlot.append(plotLine);
 
     return gPlot;
