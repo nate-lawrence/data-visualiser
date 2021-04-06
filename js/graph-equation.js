@@ -102,7 +102,7 @@ xPath.setAttribute('d', `M ${graphElements.axisPoints.xAxisInitPoints[0]} ${grap
 const yPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 yPath.setAttribute('d', `M ${graphElements.axisPoints.yAxisInitPoints[0]} ${graphElements.axisPoints.yAxisInitPoints[1]} L ${graphElements.axisPoints.yAxisEndPoints[0]} ${graphElements.axisPoints.yAxisEndPoints[1]}`)
 const plotPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-plotPath.setAttribute('d', graphElements.plotLine.toString());
+plotPath.setAttribute('d', graphElements.plotLine.join(''));
 plotPath.setAttribute('stroke', 'darkred');
 
 groupNode.append(...[xPath, yPath, plotPath]);
