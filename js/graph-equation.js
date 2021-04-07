@@ -86,9 +86,10 @@ const graphGen = (graphParams) => {
     };
     const plotLine = plotFunction(graphParams, xAxisRange, yAxisRange);
     const axisPoints = axisPointDimRange(0, 0, graphParams, xAxisRange, yAxisRange);
+    // return the results of each element generator as an object key pair
     return {axisPoints: axisPoints, plotLine: plotLine};
 };
-// The result of the generated graph elements, returned as an array    
+// The result of the generated graph elements, returned as an object key pair    
 const graphElements = graphGen(graphParams[0].groupParams);
 
 // Attaching the elements to the DOM and setting the attributes to display the graph in SVG
