@@ -12,17 +12,17 @@ const graphParams = [{
             interval: 100,
         },
         groupDims: {
-            x0: 10,
-            x1: 250,
-            y0: 10,
-            y1: 250,
+            x0: (document.querySelector('#visualise-panel').offsetWidth / 2) -200,
+            x1: (document.querySelector('#visualise-panel').offsetWidth / 2) +200,
+            y0: (document.querySelector('#visualise-panel').offsetHeight / 2) -200,
+            y1: (document.querySelector('#visualise-panel').offsetHeight / 2) +200,
         },
         axis: {
             gAxisDims: {
-                x0: 20,
-                x1: 250,
-                y0: 20,
-                y1: 250,
+                x0: (document.querySelector('#visualise-panel').offsetWidth / 2) -190,
+                x1: (document.querySelector('#visualise-panel').offsetWidth / 2) +190,
+                y0: (document.querySelector('#visualise-panel').offsetHeight / 2) -190,
+                y1: (document.querySelector('#visualise-panel').offsetHeight / 2) +190,
             },
             axesRange: {
                 xAxisRange: [-5, 5],
