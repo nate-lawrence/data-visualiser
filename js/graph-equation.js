@@ -63,7 +63,10 @@ const graphGen = (graphParams) => {
         // The Y value is calculated as a function of x using the linear/polynomial function
         // TODO: Allow for n factor polynomials by iterating over values
         const plotPointsToDisplay = xPlotPoints.reduce( (acc, ele) => {
-            const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * Math.pow( ele, funcParams.a[1] ) + funcParams.b[0] ) - yAxisMin) * yPxRatio) /*+ plotDims.y0*/);
+            // The underlying formula to transpose points from one scale to another is:
+            // For each x, y; OriginPosition * (DestinationRange / OriginRange) + constantPosition
+            // Where OriginPosition = referenceValue - minimumValue
+            const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * Math.pow( ele, funcParams.a[1] ) + funcParams.b[0] ) - yAxisMin) * yPxRatio));
             const xPlotPoint = (( ele - xAxisMin) * xPxRatio) + plotDims.x0;
             return ( [...acc, [xPlotPoint, yPlotPoint]] )
         }, [] );
@@ -78,6 +81,7 @@ const graphGen = (graphParams) => {
     // Converts location of each axis line as specified by the scale, to the corresponding point in pixels wihtin the SVG div
     const axisPointDimRange = (xPoint, yPoint, graphParams, xAxisRange, yAxisRange) => {
         const axisDims = graphParams.axis.gAxisDims;
+
         const xAxisDimInitPoints = [axisDims.x0, axisDims.y1 - ((xPoint - Math.min(...yAxisRange)) / (Math.abs(yAxisRange[0]) + Math.abs(yAxisRange[1])) * (axisDims.y1 - axisDims.y0))];
         const yAxisDimInitPoints = [(yPoint - Math.min(...xAxisRange)) / (Math.abs(xAxisRange[0]) + Math.abs(xAxisRange[1])) * (axisDims.x1 - axisDims.x0) + axisDims.x0, axisDims.y0];
         const xAxisEndPoints = [axisDims.x1, xAxisDimInitPoints[1]]
