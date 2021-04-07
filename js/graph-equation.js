@@ -68,9 +68,10 @@ const graphGen = (graphParams) => {
             // Where OriginPosition = referenceValue - minimumValue
             const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * Math.pow( ele, funcParams.a[1] ) + funcParams.b[0] ) - yAxisMin) * yPxRatio));
             const xPlotPoint = (( ele - xAxisMin) * xPxRatio) + plotDims.x0;
-            return ( [...acc, [xPlotPoint, yPlotPoint]] )
+            return ( yPlotPoint >= plotDims.y0 && yPlotPoint <= plotDims.y1 ? [...acc, [xPlotPoint, yPlotPoint]] : [...acc] )
         }, [] );
         // Converts the coordinates to syntax that can be parsed by the 'path' element
+        console.log(plotPointsToDisplay);
         const plotLine = plotPointsToDisplay.map( (e, i, a) => {
             return i === 0
                 ? `M ${e[0]} ${e[1]} `
