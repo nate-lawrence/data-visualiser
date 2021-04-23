@@ -5,11 +5,11 @@ const graphParams = [{
     groupParams: {
         graphName: 'graph-0',
         funcParams: {
-            a: [1,2],
+            a: [1, 3],
             b: [0],
         },
         plotParams: {
-            interval: 100,
+            interval: 800,
         },
         groupDims: {
             x0: (document.querySelector('#visualise-panel').offsetWidth / 2) -200,
@@ -66,7 +66,10 @@ const graphGen = (graphParams) => {
             // The underlying formula to transpose points from one scale to another is:
             // For each x, y; OriginPosition * (DestinationRange / OriginRange) + constantPosition
             // Where OriginPosition = referenceValue - minimumValue
-            const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * Math.pow( ele, funcParams.a[1] ) + funcParams.b[0] ) - yAxisMin) * yPxRatio));
+            const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * Math.pow( ele, funcParams.a[1] ) + funcParams.b[0] ) - yAxisMin) * yPxRatio)); // polynomial function
+            //const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * Math.pow( funcParams.a[1], ele ) + funcParams.b[0] ) - yAxisMin) * yPxRatio)); // exponential function
+            //const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * (Math.log(ele) / Math.log(funcParams.a[1])) + funcParams.b[0] ) - yAxisMin) * yPxRatio)) // non natural logarithmic function
+            //const yPlotPoint = plotDims.y1 - (((( funcParams.a[0] * (Math.log(ele) / Math.log(Math.exp(funcParams.a[1]))) + funcParams.b[0] ) - yAxisMin) * yPxRatio)); // natural logarithmic function
             const xPlotPoint = (( ele - xAxisMin) * xPxRatio) + plotDims.x0;
             return ( yPlotPoint >= plotDims.y0 && yPlotPoint <= plotDims.y1 ? [...acc, [xPlotPoint, yPlotPoint]] : [...acc] )
         }, [] );
