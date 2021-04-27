@@ -1,43 +1,116 @@
+.menu-functions {
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    height: 6em;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;        
+    border-bottom-width: 1px;
+    border-color: #8b919e;
+    background-color: #474f5f;
+}
+
+.menu-functions-open {
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    height: 6em;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;        
+    border-bottom-width: 1px;
+    border-color: #8b919e;
+    background-color: #5d687a;
+}
+
+.menu-list-category {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-left: 0;
+    list-style-type: none;
+    font-family: monospace;
+    font-size: 15px;
+}
+
 html, body {
     width: 100%;
     height: 100%;
     margin: 0;
 }
+
 #root-div {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: rgb(176, 203, 221);
+    background-image: linear-gradient(to right, #2081D8, #FC3672);
+    /*background-image: linear-gradient(to right, #288F63, #2C5D86);*/
 }
 
-#data-panel {
+#banner {
     width: 100%;
     height: 10%;
-    background-color: rgb(176, 203, 221);
+    background-image: linear-gradient(to right, #2081D8, #FC3672);
+    /*background-image: linear-gradient(to right, #288F63, #2C5D86);*/
+    background-color: #b0cbdd;
 }
 
-#output-panel {
+#workspace {
     width: 100%;
     height: 80%;
-    background-color: rgb(228, 243, 255);
+    background-color: #e4f3ff;
 }
 
-#parameter-panel {
+#menu-panel {
     float: left;
-    width: 15%;
+    width: 6em;
     height: 100%;
-    background-color: rgb(110, 133, 170);
-}
-
-#poly-menu {
-    width: 100%;
-    height: 2em;
-    background-color: cadetblue;
+    color:#cad6e0;
+    background-color: #424752;
 }
 
 #visualise-panel {
     float: left;
-    width: 80%;
+    width: calc(100% - 6em);
     height: 100%;
-    background-color: rgb(228, 243, 255);
+    background-color: #f1f9ff;
+}
+
+#footer {
+    width: 100%;
+    height: 10%;
+    background-color: #2081D8;
+}
+
+#page-settings {
+    float: left;
+    width: 6em;
+    height: 100%;
+    border-style: solid;
+    border-top-width: 1px;
+    border-left-width: 0px;
+    border-right-width: 1px;        
+    border-bottom-width: 0px;
+    border-color: #8b919e;
+    color: #cad6e0;;
+    background-color: #474f5f;
+}
+
+#page-navigation {
+    float: left;
+    width: calc(100% - (6em + 1px));
+    height: 100%;
+    color: #cad6e0;;
+    background-color: #424752;
 }

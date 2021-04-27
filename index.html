@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
     <head>
-        <title>Economics graphs and other visualisations</title>
+        <title>Economics - Graphs, plots, maps and other visualisations</title>
         <link href="./css/home.css" rel="stylesheet">
     </head>
     <body>
         <div id="root-div">
-            <div id="data-panel"></div>
-            <div id="output-panel">
-                <div id="parameter-panel">
-                    <div id="poly-menu"></div>
+            <div id="banner"></div>
+            <div id="workspace">
+                <div id="menu-panel">
+                    <div class="menu-functions" id="linear">
+                        <ul class="menu-list-category" id="linear-list">
+                            <li>Linear</li>
+                        </ul>
+                    </div>
+                    <div class="menu-functions" id="polynomial">
+                        <ul class="menu-list-category" id="poly-list">
+                            <li>Polynomial</li>
+                        </ul>
+                    </div>
+                    <div class="menu-functions" id="3d">
+                        <ul class="menu-list-category" id="3d-list">
+                            <li>3D Graph</li>
+                        </ul>
+                    </div>
+                    <div class="menu-functions" id="geocoding">
+                        <ul class="menu-list-category" id="geo-list">
+                            <li>Geocoding</li>
+                        </ul>
+                    </div>
                 </div>
-
                 <div id="visualise-panel"></div>
+            </div>
+            <div id="footer">
+                <div id="page-settings"></div>
+                <div id="page-navigation"></div>
             </div>
         </div>
     </body>
