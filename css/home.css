@@ -2,7 +2,7 @@
     cursor: pointer;
     display: flex;
     width: 100%;
-    height: 6em;
+    height: 5.5em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -14,13 +14,15 @@
     border-bottom-width: 1px;
     border-color: #8b919e;
     background-color: #474f5f;
+    color: #FFFFFF;
+    transition: background-color .4s, color .4s;   
 }
 
 .menu-functions-open {
     cursor: pointer;
     display: flex;
     width: 100%;
-    height: 6em;
+    height: 5.5em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -31,7 +33,9 @@
     border-right-width: 0px;        
     border-bottom-width: 1px;
     border-color: #8b919e;
-    background-color: #5d687a;
+    background-color: #56c3d2;
+    color: #000000;
+    transition: background-color .4s, color .4s;
 }
 
 .menu-list-category {
