@@ -1,47 +1,24 @@
 // Paramaters to define the graph - Manually entering this paramater data for development purposes
 // TODO: receive paramater values from user input in the UI
-export const graphEquation = () => {
-    const graphParams = [{
-        svgGroup: 'svg-group-1',
-        groupParams: {
-            graphName: 'graph-0',
-            funcParams: {
-                a: [1, 3],
-                b: [0],
-            },
-            plotParams: {
-                interval: 800,
-            },
-            groupDims: {
-                x0: (document.querySelector('#visualise-panel').offsetWidth / 2) -200,
-                x1: (document.querySelector('#visualise-panel').offsetWidth / 2) +200,
-                y0: (document.querySelector('#visualise-panel').offsetHeight / 2) -200,
-                y1: (document.querySelector('#visualise-panel').offsetHeight / 2) +200,
-            },
-            axis: {
-                gAxisDims: {
-                    x0: (document.querySelector('#visualise-panel').offsetWidth / 2) -190,
-                    x1: (document.querySelector('#visualise-panel').offsetWidth / 2) +190,
-                    y0: (document.querySelector('#visualise-panel').offsetHeight / 2) -190,
-                    y1: (document.querySelector('#visualise-panel').offsetHeight / 2) +190,
-                },
-                axesRange: {
-                    xAxisRange: [-5, 5],
-                    yAxisRange: [-5, 5],
-                },
-                formatting: {
-                    xAxisPosition: 'default',
-                    yAxisPosition: 'default',            
-                },
-            },            
-        },
-    }];
-
+export const graphEquation = (graphParams, refresh = false) => {    
     // Generate separate elements forming the graph - the plotline, and the axis
     const graphGen = (graphParams) => {
         // These variables are common across multiple element generators
         const xAxisRange = graphParams.axis.axesRange.xAxisRange;
         const yAxisRange = graphParams.axis.axesRange.yAxisRange;
+        const divMidWidth = (document.querySelector('#visualise-panel').offsetWidth / 2);
+        const divMidHeight = (document.querySelector('#visualise-panel').offsetHeight / 2);
+        const groupParamSettings = graphParams.groupDimsSettings;
+        const axisParamSettings = graphParams.axis.gAxisDimsSettings;
+        
+        graphParams.groupDims.x0 = divMidWidth + graphParams.groupDimsSettings.x0;
+        Object.keys(graphParams.groupDims).forEach( (e) => {
+            e[0] === 'x' ? graphParams.groupDims[`${e}`] = divMidWidth + groupParamSettings[`${e}`] :
+                graphParams.groupDims[`${e}`] = divMidHeight + groupParamSettings[`${e}`];
+            e[0] === 'x' ? graphParams.axis.gAxisDims[`${e}`] = divMidWidth + axisParamSettings[`${e}`] :
+                graphParams.axis.gAxisDims[`${e}`] = divMidHeight + axisParamSettings[`${e}`];
+        });
+
         // This function generates the 2d representation of f(x) on the graph, the dimensions of the graph
         // as defined in the 'graphParams'
         const plotFunction = (graphParams, xAxisRange, yAxisRange) => {
@@ -75,7 +52,6 @@ export const graphEquation = () => {
                 return ( yPlotPoint >= plotDims.y0 && yPlotPoint <= plotDims.y1 ? [...acc, [xPlotPoint, yPlotPoint]] : [...acc] )
             }, [] );
             // Converts the coordinates to syntax that can be parsed by the 'path' element
-            console.log(plotPointsToDisplay);
             const plotLine = plotPointsToDisplay.map( (e, i, a) => {
                 return i === 0
                     ? `M ${e[0]} ${e[1]} `
@@ -103,7 +79,14 @@ export const graphEquation = () => {
 
     // Attaching the elements to the DOM and setting the attributes to display the graph in SVG
     // TODO: clean this up and wrap each step in distinct functions
+    
+
     const parentNode = document.querySelector('#visualise-panel');
+    if (refresh === true) {
+        while (parentNode.firstChild) {
+            parentNode.removeChild(parentNode.firstChild);
+        };
+    };
     const svgNode = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svgNode.setAttribute('width', parentNode.offsetWidth);
     svgNode.setAttribute('height', parentNode.offsetHeight);
