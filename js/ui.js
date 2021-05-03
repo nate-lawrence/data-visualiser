@@ -21,11 +21,23 @@ export const ui = () => {
 
     };
 
+    const resizeDocument = () => {
+        console.log('resize triggered');
+        graphEquation(graphParams, true);
+    };
+
     const menuPanel = () => {
         const menuDiv = document.querySelector("#menu-panel")
         menuDiv.addEventListener('click', clickMenu);
     };
+
+    const resize = () => {
+        window.addEventListener('resize', resizeDocument);
+
+    };
+
     menuPanel();
+    resize();
 };
 
 

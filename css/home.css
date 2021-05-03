@@ -34,7 +34,7 @@
     border-bottom-width: 1px;
     border-color: #8b919e;
     background-color: #607090;
-    color: #000000;
+    color: #c1f9ff;
     transition: background-color .35s, color .35s;
 }
 
@@ -102,6 +102,10 @@ html, body {
     width: 100%;
     height: 80%;
     background-color: #e4f3ff;
+}
+
+#menu-container {
+    background-color: #607090;
 }
 
 #menu-panel {
