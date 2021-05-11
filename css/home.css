@@ -2,7 +2,7 @@
     cursor: pointer;
     display: flex;
     width: 100%;
-    height: 5.5em;
+    height: 4em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -22,7 +22,7 @@
     cursor: pointer;
     display: flex;
     width: 100%;
-    height: 5.5em;
+    height: 4em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -45,7 +45,7 @@
     padding-left: 0;
     list-style-type: none;
     font-family: monospace;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .parameter-panel {
@@ -64,14 +64,14 @@
 
 .visualise-panel {
     float: left;
-    width: calc(100% - 6em);
+    width: calc(100% - 5em);
     height: 100%;
     background-color: #f1f9ff;
 }
 
 .visualise-panel-params {
     float: left;
-    width: calc(100% - 18em);
+    width: calc(100% - 17em);
     height: 100%;
     background-color: #f1f9ff;
 }
@@ -86,21 +86,19 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-image: linear-gradient(to right, #2081D8, #FC3672);
-    /*background-image: linear-gradient(to right, #288F63, #2C5D86);*/
+    /*background-image: linear-gradient(to right, #2081D8, #FC3672);*/
 }
 
 #banner {
     width: 100%;
-    height: 10%;
-    background-image: linear-gradient(to right, #2081D8, #FC3672);
-    /*background-image: linear-gradient(to right, #288F63, #2C5D86);*/
+    height: 6%;
+    /*background-image: linear-gradient(to right, #2081D8, #FC3672);*/
     background-color: #b0cbdd;
 }
 
 #workspace {
     width: 100%;
-    height: 80%;
+    height: 84%;
     background-color: #e4f3ff;
 }
 
@@ -110,7 +108,7 @@ html, body {
 
 #menu-panel {
     float: left;
-    width: 6em;
+    width: 5em;
     height: 100%;
     color:#cad6e0;
     background-color: #424752;
@@ -124,7 +122,7 @@ html, body {
 
 #page-settings {
     float: left;
-    width: 6em;
+    width: 5em;
     height: 100%;
     border-style: solid;
     border-top-width: 1px;
@@ -138,7 +136,7 @@ html, body {
 
 #page-navigation {
     float: left;
-    width: calc(100% - (6em + 1px));
+    width: calc(100% - (5em + 1px));
     height: 100%;
     color: #cad6e0;;
     background-color: #424752;

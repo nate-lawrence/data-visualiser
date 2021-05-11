@@ -10,10 +10,10 @@ export const graphParams = [{
             interval: 800,
         },
         groupDimsSettings: {
-            x0: -200,
-            x1: 200,
-            y0: -200,
-            y1: 200,
+            x0: -5,
+            x1: 5,
+            y0: -5,
+            y1: 5,
         },
         groupDims: {
             x0: null,
@@ -23,10 +23,10 @@ export const graphParams = [{
         },
         axis: {
             gAxisDimsSettings: {
-                x0: -190,
-                x1: 190,
-                y0: -190,
-                y1: 190,
+                x0: -150,
+                x1: 150,
+                y0: -150,
+                y1: 150,
             },
             gAxisDims: {
                 x0: null,

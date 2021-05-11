@@ -13,8 +13,8 @@ export const graphEquation = (graphParams, refresh = false) => {
         
         graphParams.groupDims.x0 = divMidWidth + graphParams.groupDimsSettings.x0;
         Object.keys(graphParams.groupDims).forEach( (e) => {
-            e[0] === 'x' ? graphParams.groupDims[`${e}`] = divMidWidth + groupParamSettings[`${e}`] :
-                graphParams.groupDims[`${e}`] = divMidHeight + groupParamSettings[`${e}`];
+            e[0] === 'x' ? graphParams.groupDims[`${e}`] = divMidWidth + axisParamSettings[`${e}`] + groupParamSettings[`${e}`] :
+                graphParams.groupDims[`${e}`] = divMidHeight + axisParamSettings[`${e}`] + groupParamSettings[`${e}`];
             e[0] === 'x' ? graphParams.axis.gAxisDims[`${e}`] = divMidWidth + axisParamSettings[`${e}`] :
                 graphParams.axis.gAxisDims[`${e}`] = divMidHeight + axisParamSettings[`${e}`];
         });
@@ -69,17 +69,31 @@ export const graphEquation = (graphParams, refresh = false) => {
             const yAxisEndPoints = [yAxisDimInitPoints[0], axisDims.y1];
             return {xAxisInitPoints: xAxisDimInitPoints, yAxisInitPoints: yAxisDimInitPoints, xAxisEndPoints: xAxisEndPoints, yAxisEndPoints: yAxisEndPoints};
         };
+
+        const groupBorder = (params) => {
+            const borderRect = {
+                x: params.groupDims.x0, 
+                y: params.groupDims.y0,
+                width: params.groupDims.x1 - params.groupDims.x0,
+                height: params.groupDims.y1 - params.groupDims.y0,
+                rx: 0,
+                ry: 0}
+            return borderRect;
+        }
+
         const plotLine = plotFunction(graphParams, xAxisRange, yAxisRange);
+        console.log(plotLine);
         const axisPoints = axisPointDimRange(0, 0, graphParams, xAxisRange, yAxisRange);
+        console.log(axisPoints);
+        const borderDims = groupBorder(graphParams);
         // return the results of each element generator as an object key pair
-        return {axisPoints: axisPoints, plotLine: plotLine};
+        return {axisPoints: axisPoints, plotLine: plotLine, graphBorder: borderDims};
     };
     // The result of the generated graph elements, returned as an object key pair    
     const graphElements = graphGen(graphParams[0].groupParams);
 
     // Attaching the elements to the DOM and setting the attributes to display the graph in SVG
-    // TODO: clean this up and wrap each step in distinct functions
-    
+    // TODO: clean this up and wrap each step in distinct functions 
 
     const parentNode = document.querySelector('#visualise-panel');
     if (refresh === true) {
@@ -100,8 +114,32 @@ export const graphEquation = (graphParams, refresh = false) => {
     const plotPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     plotPath.setAttribute('d', graphElements.plotLine.join(''));
     plotPath.setAttribute('stroke', 'darkred');
+    const gBorder = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    gBorder.setAttribute('x', graphElements.graphBorder.x);
+    gBorder.setAttribute('y', graphElements.graphBorder.y);
+    gBorder.setAttribute('width', graphElements.graphBorder.width);
+    gBorder.setAttribute('height', graphElements.graphBorder.height);
+    gBorder.setAttribute('rx', graphElements.graphBorder.rx);
+    gBorder.setAttribute('ry', graphElements.graphBorder.ry);
+    gBorder.setAttribute('fill', 'transparent');
+    gBorder.setAttribute('stroke-width', 1);
+    gBorder.setAttribute('stroke', 'blue');
+    gBorder.setAttribute('id', 'graph-1');
 
-    groupNode.append(...[xPath, yPath, plotPath]);
+    groupNode.append(...[xPath, yPath, plotPath, gBorder]);
     svgNode.append(groupNode);
     parentNode.append(svgNode);
+
+    
+    /*const groupBoundBox = groupNode.getBoundingClientRect();
+    const groupBounds = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    groupBounds.setAttribute('d', `M ${groupBoundBox.x} ${groupBoundBox.y} 
+        L ${groupBoundBox.x + groupBoundBox.width} ${groupBoundBox.y} 
+        L ${groupBoundBox.x + groupBoundBox.width} ${groupBoundBox.y + groupBoundBox.height}
+        L ${groupBoundBox.x} ${groupBoundBox.y + groupBoundBox.height}
+        `);
+        //L ${groupBoundBox.x} ${groupBoundBox.y}`);
+    groupBounds.setAttribute('stroke', 'black');
+    groupNode.append(...[groupBounds]);
+    console.log(groupBoundBox);*/
 };
